@@ -10,7 +10,9 @@ app.use(express.json());
 app.use(cors({ origin: `http://localhost:${process.env.PORT} || 3000` }));
 
 mongoose
-  .connect("mongodb+srv://admin:admin@cluster0.syzy1.mongodb.net/scratch")
+  .connect(
+    "mongodb+srv://admin:admin@cluster0.syzy1.mongodb.net/scratch?ssl=true"
+  )
   .then(() => console.log("Connected to MongoDB"));
 
 app.post("/", (req, res) => {
