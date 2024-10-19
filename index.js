@@ -7,7 +7,7 @@ const UserModel = require("./models/Accounts");
 // configure the connections
 const app = express();
 app.use(express.json());
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(cors({ origin: `http://localhost:${process.env.PORT} || 3000` }));
 
 mongoose
   .connect("mongodb+srv://admin:admin@cluster0.syzy1.mongodb.net/scratch")
@@ -22,6 +22,6 @@ app.post("/", (req, res) => {
   res.send("Done");
 });
 
-app.listen("3001", () => {
+app.listen(process.env.PORT || "3001", () => {
   console.log("Server is Running");
 });
