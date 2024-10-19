@@ -1,18 +1,18 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const dotenv = require("dotenv");
+dotenv.config();
 
 const UserModel = require("./models/Accounts");
 
 // configure the connections
 const app = express();
 app.use(express.json());
-app.use(cors({ origin: `http://localhost:${process.env.PORT} || 3000` }));
+app.use(cors({ origin: `*` }));
 
 mongoose
-  .connect(
-    "mongodb+srv://admin:admin@cluster0.syzy1.mongodb.net/scratch?ssl=true"
-  )
+  .connect(process.env.MONGO_URL)
   .then(() => console.log("Connected to MongoDB"));
 
 app.post("/", (req, res) => {
@@ -24,6 +24,6 @@ app.post("/", (req, res) => {
   res.send("Done");
 });
 
-app.listen(process.env.PORT || "3001", () => {
+app.listen(process.env.PORT, () => {
   console.log("Server is Running");
 });
